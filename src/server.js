@@ -29,12 +29,12 @@ app.get('/productos', (req, res) => {
     return res.json(filtrados);
   }
 
-  res.json(productos);
+  return res.json(productos);
 });
 
 // Usuarios por ID
 app.get('/usuarios/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id, 10);
 
   const usuario = usuarios.find((u) => u.id === id);
 
@@ -42,12 +42,10 @@ app.get('/usuarios/:id', (req, res) => {
     return res.status(404).send('Usuario no encontrado.');
   }
 
-  res.json(usuario);
+  return res.json(usuario);
 });
 
 // 404
-app.use((req, res) => {
-  res.status(404).send('No se ha encontrado la ruta ingresada.');
-});
+app.use((req, res) => res.status(404).send('No se ha encontrado la ruta ingresada.'));
 
 module.exports = app;
